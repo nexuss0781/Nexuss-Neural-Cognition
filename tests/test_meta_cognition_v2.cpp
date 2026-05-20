@@ -286,7 +286,7 @@ bool test_dynamic_reallocation_simulation() {
     }
     
     size_t neurons_at_end = engine.get_current_neurons();
-    double utilization = engine.get_utilization_ratio();
+    double utilization = engine.get_neuron_utilization();
     
     std::cout << "  Neurons at start: " << neurons_at_start << std::endl;
     std::cout << "  Neurons at end: " << neurons_at_end << std::endl;
@@ -343,7 +343,7 @@ bool test_demand_signal_assessment() {
     
     std::cout << "  Neuron demand level assessed" << std::endl;
     std::cout << "  Synapse demand level assessed" << std::endl;
-    std::cout << "  Utilization ratio: " << engine.get_utilization_ratio() << std::endl;
+    std::cout << "  Utilization ratio: " << engine.get_neuron_utilization() << std::endl;
     
     TEST_ASSERT(true, "Demand signals should be computable");
     

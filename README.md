@@ -394,8 +394,8 @@ public:
 ### Build & Run
 ```bash
 # Clone repository
-git clone https://github.com/nexuss0781/arteficial-intellegence.git
-cd arteficial-intellegence
+git clone https://github.com/nexuss0781/Nexuss-Neural-Cognition.git
+cd Nexuss-Neural-Cognition
 
 # Build and run all tests
 ./build_and_run.sh
@@ -404,9 +404,13 @@ cd arteficial-intellegence
 ./build/physics_tests
 ./build/sensory_tests
 ./build/memory_tests
+./build/test_meta_cognition_v2
 
 # Run main simulation
 ./build/nexuss_sim
+
+# Run meta-cognition demo
+./build/meta_cognition_demo
 ```
 
 ### Basic Usage Example
@@ -638,7 +642,13 @@ Nexuss Neural Cognition dynamically scales network size based on available syste
 | 500 MB | 270,336 | 13,516,800 | 488.9 MB | 94× | 178 ms |
 
 **Memory Estimation Formula**:  
-`Memory (MB) ≈ (neurons × 40 bytes + synapses × 32 bytes) / 1,048,576`
+`Memory (MB) ≈ (neurons × 88 bytes + synapses × 32 bytes) / 1,048,576 × 1.15`
+
+**Key Insights**:
+- **Linear Scalability**: Network capacity scales linearly with memory budget
+- **High Efficiency**: 97-98% memory utilization across all scales
+- **Real-Time Performance**: Maintains 94×-245× speedup even at maximum scale
+- **Fast Initialization**: Sub-200ms initialization even for 270K+ neurons
 
 ### Traditional Benchmark Results
 
@@ -688,7 +698,7 @@ If you use Nexuss Neural Cognition in your research, please cite:
   title = {Nexuss Neural Cognition: A Biologically-Plausible Spiking Neural Network Simulator with Meta-Cognitive Auto-Scaling},
   author = {nexuss0781},
   year = {2024},
-  url = {https://github.com/nexuss0781/arteficial-intellegence}
+  url = {https://github.com/nexuss0781/Nexuss-Neural-Cognition}
 }
 ```
 
@@ -712,6 +722,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Built with ❤️ for Neuroscience & AI Research**
 
-[Report Bug](https://github.com/nexuss0781/arteficial-intellegence/issues) · [Request Feature](https://github.com/nexuss0781/arteficial-intellegence/issues)
+[Report Bug](https://github.com/nexuss0781/Nexuss-Neural-Cognition/issues) · [Request Feature](https://github.com/nexuss0781/Nexuss-Neural-Cognition/issues)
 
 </div>

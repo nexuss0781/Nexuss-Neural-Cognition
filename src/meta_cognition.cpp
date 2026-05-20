@@ -89,7 +89,7 @@ void MetaCognitiveEngine::initialize_engine(size_t neurons, size_t synapses, uin
     engine_->init_structured(neurons, synapses, seed);
     
     // Create a default global layer
-    engine_->create_layer("Global", neurons, LAYER_ID_CORTEX, PLACTICITY_SCALE_CORTEX);
+    engine_->create_layer("Global", neurons, LAYER_ID_CORTEX, PLASTICITY_SCALE_CORTEX);
     
     // Simple random connectivity for baseline
     auto& synapses_ref = const_cast<SynapseBlock&>(engine_->get_synapses());
