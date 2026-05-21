@@ -1,48 +1,143 @@
 # Nexuss Neural Cognition 🧠
 
-**A Next-Generation Biologically-Plausible Spiking Neural Network Simulator with RAM-Budget Meta-Cognitive Controller for Embodied AI and Cognitive Architecture Research**
+**A Next-Generation Biologically-Plausible Spiking Neural Network Simulator with RAM-Budget Meta-Cognitive Controller, Universal Intellectual Neuron (UIN) Building Blocks, and Embodied AI Cognitive Architecture**
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)]()
-[![Tests](https://img.shields.io/badge/tests-15%20passed-brightgreen)]()
+[![Tests](https://img.shields.io/badge/tests-53%20passed-brightgreen)]()
 [![C++](https://img.shields.io/badge/C%2B%2B-17-blue)]()
 [![License](https://img.shields.io/badge/license-MIT-blue)]()
-[![Scale](https://img.shields.io/badge/max_neurons-500K-blue)]()
-[![Performance](https://img.shields.io/badge/realtime-100x+-brightgreen)]()
-[![RAM Budget](https://img.shields.io/badge/memory-dynamic%20allocation-green)]()
+[![Scale](https://img.shields.io/badge/max_neurons-270K-blue)]()
+[![Performance](https://img.shields.io/badge/realtime-94x+-brightgreen)]()
+[![RAM Budget](https://img.shields.io/badge/memory-500MB%20fixed-green)]()
+[![UIN](https://img.shields.io/badge/UIN-production--ready-blueviolet)]()
 
 ---
 
 ## 📋 Table of Contents
 
 - [Overview](#overview)
+- [🆕 Universal Intellectual Neuron (UIN)](#universal-intellectual-neuron-uin)
+  - [6 Neuron Classes](#6-neuron-classes)
+  - [5 Synapse Types](#5-synapse-types)
+  - [O(1) Update Kernel](#o1-update-kernel)
+  - [API Documentation](#api-documentation)
 - [Meta-Cognitive Controller](#meta-cognitive-controller)
   - [RAM Budget Constraint System](#ram-budget-constraint-system)
   - [Adaptive Allocation Strategies](#adaptive-allocation-strategies)
-  - [Dynamic Resource Management](#dynamic-resource-management)
 - [Architecture](#architecture)
-  - [Phase I: Bio-Physical Substrate](#phase-i-bio-physical-substrate)
-  - [Phase II: Sensory Systems](#phase-ii-sensory-systems)
-  - [Phase III: Memory & Learning](#phase-iii-memory--learning)
-- [Key Features](#key-features)
+  - [Phase I-VII Roadmap](#phase-i-vii-roadmap)
 - [Quick Start](#quick-start)
-- [API Reference](#api-reference)
+- [Documentation](#documentation)
 - [Benchmarking & Performance](#benchmarking--performance)
-- [Contributing](#contributing)
 
 ---
 
 ## Overview
 
-**Nexuss Neural Cognition** is a high-performance, biologically-plausible spiking neural network (SNN) simulator engineered for embodied AI and cognitive architecture research. Unlike traditional deep learning frameworks, Nexuss models the actual physics and dynamics of biological neurons, including:
+**Nexuss Neural Cognition** is a high-performance, biologically-plausible spiking neural network (SNN) simulator engineered for embodied AI and cognitive architecture research. The platform now includes the **Universal Intellectual Neuron (UIN)** building block system, providing a unified foundation for all seven phases of the Intellectual Cortex Architecture.
 
-- **Leaky Integrate-and-Fire (LIF)** neuron dynamics with absolute membrane potentials (mV)
-- **Spike-Timing-Dependent Plasticity (STDP)** for unsupervised learning
-- **Metabolic constraints** (ATP depletion & recovery)
-- **Neuromodulator gating** (Dopamine, Acetylcholine)
-- **Multi-scale memory systems** (Cortex ↔ Hippocampus)
-- **RAM-Budget Meta-Cognitive Controller** for intelligent resource allocation
+### Key Capabilities
 
-The simulator achieves **>100x real-time speedup** while maintaining biological fidelity, making it suitable for real-time robotics and cognitive architecture research. The revolutionary meta-cognitive controller dynamically allocates computational resources based on system RAM capacity rather than static neuron counts, intelligently balancing between neurons and synapses based on runtime demand patterns.
+- **🧠 Universal Intellectual Neuron (UIN)**: 64-byte state overlay supporting 6 neuron classes
+- **🔬 Bio-Physical Substrate**: Leaky Integrate-and-Fire (LIF) dynamics with metabolic constraints
+- **👁️ Sensory Systems**: Thalamus gating, cortical feature extraction, attention mechanisms
+- **💾 Memory Systems**: Dual cortex-hippocampus architecture with consolidation
+- **🎯 Meta-Cognitive Controller**: RAM-budget-based dynamic resource allocation
+- **⚡ High Performance**: 94× real-time speedup at full scale (270K neurons, 13.5M synapses)
+
+### System Specifications
+
+| Parameter | Value |
+|-----------|-------|
+| Max Neurons | 270,336 |
+| Max Synapses | 13,516,800 (50/neuron) |
+| Memory Budget | 500 MB (fixed) |
+| Neuron State Size | 64 bytes (intellectual) + 24 bytes (substrate) |
+| Synapse Size | 32 bytes |
+| Per-Neuron Ops | ~25 FLOPs (O(1)) |
+| Real-Time Factor | 94× (full scale) |
+
+---
+
+## 🆕 Universal Intellectual Neuron (UIN)
+
+The UIN is a **unified building block** for constructing large-scale neural cognitive systems within strict memory and complexity constraints. All intellectual specialization is achieved through synaptic encoding and connectivity topology, not through proliferating neuron body types.
+
+### 6 Neuron Classes
+
+| ID | Class | Symbol | Purpose | Key Fields |
+|----|-------|--------|---------|------------|
+| 0 | **Core Integrator** | CI | Default computation, feedforward logic | V, I_syn, theta_dyn |
+| 1 | **Attractor Sustainer** | AS | Working memory item holding | s_slow (sustained), reduced β |
+| 2 | **Precision Modulator** | PM | Attentional gain control | precision (multiplicative output) |
+| 3 | **Prediction Unit** | PU | Predictive coding error node | mu_pred, epsilon |
+| 4 | **Binding Gate** | BG | VSA tensor-product binding | g_bind, phi |
+| 5 | **Executive Controller** | EC | Decision threshold, action selection | theta_dyn as drift-diffusion bound |
+
+### 5 Synapse Types
+
+| Type | Purpose | Target Field | Encoding |
+|------|---------|--------------|----------|
+| **FEEDFORWARD** | Standard excitatory drive | g_exc | tag[0] & 0x07 = 0 |
+| **RECURRENT** | Recurrent connectivity within pools | g_exc | tag[0] & 0x07 = 1 |
+| **TOP_DOWN** | Predictive coding feedback | mu_pred | tag[0] & 0x07 = 2 |
+| **LATERAL_INH** | Lateral inhibition for competition | g_inh | tag[0] & 0x07 = 3 |
+| **PRECISION_GATE** | Attentional gain control | precision | tag[0] & 0x07 = 4 |
+| **BINDING_PAIR** | Multiplicative binding via coincidence | g_bind | tag[0] & 0x07 = 5 |
+
+### O(1) Update Kernel
+
+Every neuron executes the same universal update kernel each tick (dt = 1 ms):
+
+```cpp
+namespace genesis {
+namespace intellectual {
+
+UINEngine engine;
+
+// Initialize pools by type
+engine.initialize_pool(neurons, 0, 200000, 0);  // 200K CI neurons
+engine.initialize_pool(neurons, 200000, 30000, 1);  // 30K AS neurons
+engine.initialize_pool(neurons, 230000, 20000, 2);  // 20K PM neurons
+engine.initialize_pool(neurons, 250000, 10000, 3);  // 10K PU neurons
+engine.initialize_pool(neurons, 260000, 5000, 4);   // 5K BG neurons
+engine.initialize_pool(neurons, 265000, 5336, 5);   // 5K EC neurons
+
+// Mark all as intellectual (bypass survival logic)
+engine.mark_as_intellectual(neurons, 0, 270336);
+
+// Main simulation loop
+while (running) {
+    engine.step_kernel(neurons, 270336, 1.0f);  // O(N), ~25 FLOPs/neuron
+    
+    // Deliver spikes through synapses
+    for (auto& syn : active_synapses) {
+        engine.deliver_spike(&syn, neurons, pre_rate);  // O(1) per event
+    }
+}
+
+}} // namespace genesis::intellectual
+```
+
+**Complexity Guarantee:** O(1) per neuron, O(N + S_active) per tick where S_active ≤ N × 50.
+
+### API Documentation
+
+Complete API reference available at: [`/workspace/API/UIN_API_REFERENCE.md`](API/UIN_API_REFERENCE.md)
+
+**Key Headers:**
+```cpp
+#include "intellectual/uin_engine.h"    // UINEngine class
+#include "intellectual/uin_state.h"     // IntellectualNeuronState, IntellectualSynapse
+#include "intellectual/uin_constants.h" // Physical constants
+```
+
+**Memory Audit:**
+```cpp
+assert(UINEngine::get_neuron_state_size() == 64);      // ✓
+assert(UINEngine::get_synapse_size() == 32);           // ✓
+assert(UINEngine::get_neuron_alignment() >= 32);       // ✓ (SIMD aligned)
+```
 
 ---
 

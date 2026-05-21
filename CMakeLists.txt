@@ -54,10 +54,20 @@ gtest_discover_tests(physics_tests)
 gtest_discover_tests(sensory_tests)
 gtest_discover_tests(memory_tests)
 
-# Demo: Meta-Cognition Auto-Scaling
+# Test 4: Meta-Cognition Auto-Scaling
 add_executable(meta_cognition_demo src/demo_meta_cognition.cpp)
 target_link_libraries(meta_cognition_demo PRIVATE bio_core)
 
-# Test 4: Meta-Cognition v2 (Dynamic RAM-based allocation)
+# Test 5: Meta-Cognition v2 (Dynamic RAM-based allocation)
 add_executable(test_meta_cognition_v2 tests/test_meta_cognition_v2.cpp)
 target_link_libraries(test_meta_cognition_v2 PRIVATE bio_core)
+
+# Test 6: UIN - Universal Intellectual Neuron (Phase IV+)
+add_executable(uin_tests tests/uin_tests.cpp src/intellectual/uin_engine.cpp)
+target_link_libraries(uin_tests PRIVATE bio_core GTest::gtest_main)
+target_include_directories(uin_tests PRIVATE src)
+
+# Test 7: UIN Full-Scale Stress Test (270K neurons, 13.5M synapses)
+add_executable(uin_stress_test tests/uin_stress_test.cpp src/intellectual/uin_engine.cpp)
+target_link_libraries(uin_stress_test PRIVATE bio_core GTest::gtest_main)
+target_include_directories(uin_stress_test PRIVATE src)
